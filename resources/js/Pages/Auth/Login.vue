@@ -5,7 +5,7 @@ import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
-import { Head, Link, useForm } from '@inertiajs/vue3';
+import {Head, Link, useForm} from '@inertiajs/vue3';
 
 defineProps({
     canResetPassword: {
@@ -31,7 +31,7 @@ const submit = () => {
 
 <template>
     <GuestLayout>
-        <Head title="Log in" />
+        <Head title="Log in"/>
 
         <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
             {{ status }}
@@ -46,7 +46,7 @@ const submit = () => {
             <br>
 
             <div>
-                <InputLabel for="email" value="Email" />
+                <InputLabel for="email" value="Email"/>
 
                 <TextInput
                     id="email"
@@ -58,11 +58,11 @@ const submit = () => {
                     autocomplete="username"
                 />
 
-                <InputError class="mt-2" :message="form.errors.email" />
+                <InputError class="mt-2" :message="form.errors.email"/>
             </div>
 
             <div class="mt-4">
-                <InputLabel for="password" value="Password" />
+                <InputLabel for="password" value="Password"/>
 
                 <TextInput
                     id="password"
@@ -73,28 +73,33 @@ const submit = () => {
                     autocomplete="current-password"
                 />
 
-                <InputError class="mt-2" :message="form.errors.password" />
+                <InputError class="mt-2" :message="form.errors.password"/>
             </div>
 
             <div class="block mt-4">
                 <label class="flex items-center">
-                    <Checkbox name="remember" v-model:checked="form.remember" />
+                    <Checkbox name="remember" v-model:checked="form.remember"/>
                     <span class="ml-2 text-sm text-gray-600 dark:text-gray-400">Remember me</span>
                 </label>
             </div>
 
-            <div class="flex items-center justify-end mt-4">
-                <Link
-                    v-if="canResetPassword"
-                    :href="route('password.request')"
-                    class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
-                >
-                    Forgot your password?
-                </Link>
-
-                <PrimaryButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Log in
+            <div class="mt-4">
+                <PrimaryButton class="w-full text-center mb-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                    Login
                 </PrimaryButton>
+
+                <br>
+
+                <div>
+                    <span class="text-gray-600 dark:text-gray-400 text-sm">Belum memiliki akun?</span>
+                    <Link
+                        v-if="canResetPassword"
+                        :href="route('register')"
+                        class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
+                    >
+                        Daftar Disini
+                    </Link>
+                </div>
             </div>
         </form>
     </GuestLayout>
