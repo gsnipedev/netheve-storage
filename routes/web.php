@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Items\ItemsController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -25,9 +26,14 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::controller(ItemsController::class)->group(function (){
+    Route::get('/dashboard', [ItemsController::class, 'index'])->name('dashboard');
+    Route::get('/items/create', [ItemsController::class, 'create'])->name('item.create');
+    Route::post('/items', [ItemsController::class, 'store'])->name('item.store');
+    Route::get('/items/{id}', [ItemsController::class, 'edit'])->name('item.edit');
+    Route::put('/items/{id}', [ItemsController::class, 'update'])->name('item.update');
+    Route::delete('/items/{id}', [ItemsController::class, 'destroy'])->name('item.destroy');
+})->middleware(['auth', 'verified']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -35,4 +41,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
