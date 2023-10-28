@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Division\DivisionController;
+use App\Http\Controllers\Division\DivisionDataController;
 use App\Http\Controllers\Items\ItemsController;
 use App\Http\Controllers\Items\ItemsDataController;
 use App\Http\Controllers\ProfileController;
@@ -34,10 +35,17 @@ Route::resource('division', DivisionController::class)->middleware(['auth']);
 
 Route::controller(TransactionController::class)->group(function (){
     Route::get('/transaction', 'index')->name('transaction.index');
-    Route::post('/transaction', 'store')->name('transaction.store');
+    Route::post('/transaction/send', 'store')->name('transaction.store');
+    Route::post('/transaction/receive', 'store_back')->name('transaction.store_back');
 })->middleware(['auth', 'verified']);
 
-Route::get('/search/item', [ItemsDataController::class, 'search'])->middleware(['auth', 'verified']);
+Route::get('/search/item', [ItemsDataController::class, 'search'])
+    ->name('search.item')
+    ->middleware(['auth', 'verified']);
+
+Route::get('/search/division', [DivisionDataController::class, 'search'])
+    ->name('search.division')
+    ->middleware(['auth', 'verified']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -45,32 +45,67 @@ class TransactionController extends Controller {
 
         $item = Item::find($request->item_id);
 
-        if($item->stock < $request->amount){
+        if ($item->stock < $request->amount) {
             return redirect()->back()->withErrors(['amount' => 'Stock tidak mencukupi permintaan']);
         }
 
         $trx = Trx::where([
-            ['division_id', '=',  $request->division_id],
+            ['division_id', '=', $request->division_id],
             ['item_id', '=', $request->item_id]
         ])->firstOrNew(
             ['division_id' => $request->division_id, 'item_id' => $request->item_id],
             ['remaining_amount' => 0]
         );
 
-        $trx->update([
-            'remaining_amount' => $trx->remaining_amount + $request->amount
-        ]);
-
+        $trx->remaining_amount += $request->amount;
         $trx->save();
 
         TrxLog::create([
-           'trx_id' => $trx->id,
-           'issuer' => Auth::id(),
-           'amount' => $request->amount
+            'trx_id' => $trx->id,
+            'issuer' => Auth::id(),
+            'amount' => $request->amount
         ]);
 
         $item->update([
             'stock' => $item->stock - $request->amount
+        ]);
+
+        DB::commit();
+
+        return to_route('transaction.index');
+    }
+
+    public function store_back(Request $request) {
+        $request->validate([
+            'division_id' => 'bail|numeric|required',
+            'item_id' => 'bail|numeric|required',
+            'amount' => 'bail|required|numeric|min:0'
+        ]);
+
+        DB::beginTransaction();
+
+        $item = Item::find($request->item_id);
+
+        $trx = Trx::where([
+            ['division_id', '=', $request->division_id],
+            ['item_id', '=', $request->item_id]
+        ])->first();
+
+        if ($request->amount > $trx->remaining_amount) {
+            return redirect()->back()->withErrors(['amount' => 'Stock tidak mencukupi permintaan']);
+        }
+
+        $trx->remaining_amount -= $request->amount;
+        $trx->save();
+
+        TrxLog::create([
+            'trx_id' => $trx->id,
+            'issuer' => Auth::id(),
+            'amount' => -$request->amount
+        ]);
+
+        $item->update([
+            'stock' => $item->stock + $request->amount
         ]);
 
         DB::commit();
