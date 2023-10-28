@@ -36,6 +36,10 @@ const showingNavigationDropdown = ref(false);
                                 <NavLink :href="route('division.index')" :active="route().current('division.index')">
                                     Divisi
                                 </NavLink>
+
+                                <NavLink :href="route('transaction.index')" :active="route().current('transaction.index')">
+                                    Transaksi
+                                </NavLink>
                             </div>
                         </div>
 
@@ -122,6 +126,10 @@ const showingNavigationDropdown = ref(false);
 
                         <ResponsiveNavLink :href="route('division.index')" :active="route().current('division')">
                             Divisi
+                        </ResponsiveNavLink>
+
+                        <ResponsiveNavLink :href="route('transaction.index')" :active="route().current('transaction')">
+                            Transaksi
                         </ResponsiveNavLink>
                     </div>
 

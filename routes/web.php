@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\Division\DivisionController;
 use App\Http\Controllers\Items\ItemsController;
+use App\Http\Controllers\Items\ItemsDataController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TransactionController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -29,6 +31,13 @@ Route::get('/', function () {
 
 Route::resource('item', ItemsController::class)->middleware(['auth', 'verified']);
 Route::resource('division', DivisionController::class)->middleware(['auth']);
+
+Route::controller(TransactionController::class)->group(function (){
+    Route::get('/transaction', 'index')->name('transaction.index');
+    Route::post('/transaction', 'store')->name('transaction.store');
+})->middleware(['auth', 'verified']);
+
+Route::get('/search/item', [ItemsDataController::class, 'search'])->middleware(['auth', 'verified']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

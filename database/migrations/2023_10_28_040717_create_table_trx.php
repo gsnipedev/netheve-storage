@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->foreign('division_id')->references('id')->on('divisions');
             $table->unsignedBigInteger('item_id');
             $table->foreign('item_id')->references('id')->on('items');
+            $table->unsignedBigInteger('remaining_amount');
             $table->timestamps();
         });
     }
