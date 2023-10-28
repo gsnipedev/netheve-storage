@@ -9,9 +9,13 @@ return new class extends Migration {
      * Run the migrations.
      */
     public function up(): void {
-        Schema::create('divisions', function (Blueprint $table) {
+        Schema::create('trx_log', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->unsignedBigInteger('trx_id');
+            $table->foreign('trx_id')->references('id')->on('trx');
+            $table->unsignedBigInteger('issuer');
+            $table->foreign('issuer')->references('id')->on('users');
+            $table->integer('amount');
             $table->timestamps();
         });
     }
@@ -20,6 +24,6 @@ return new class extends Migration {
      * Reverse the migrations.
      */
     public function down(): void {
-        Schema::dropIfExists('divisions');
+        Schema::dropIfExists('trx_log');
     }
 };

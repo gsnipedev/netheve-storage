@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Division\DivisionController;
 use App\Http\Controllers\Items\ItemsController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -26,14 +27,8 @@ Route::get('/', function () {
     ]);
 });
 
-Route::controller(ItemsController::class)->group(function (){
-    Route::get('/dashboard', [ItemsController::class, 'index'])->name('dashboard');
-    Route::get('/items/create', [ItemsController::class, 'create'])->name('item.create');
-    Route::post('/items', [ItemsController::class, 'store'])->name('item.store');
-    Route::get('/items/{id}', [ItemsController::class, 'edit'])->name('item.edit');
-    Route::put('/items/{id}', [ItemsController::class, 'update'])->name('item.update');
-    Route::delete('/items/{id}', [ItemsController::class, 'destroy'])->name('item.destroy');
-})->middleware(['auth', 'verified']);
+Route::resource('item', ItemsController::class)->middleware(['auth', 'verified']);
+Route::resource('division', DivisionController::class)->middleware(['auth']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

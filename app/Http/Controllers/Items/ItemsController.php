@@ -14,7 +14,7 @@ class ItemsController extends Controller {
      * Display a listing of the resource.
      */
     public function index() {
-        return Inertia::render("Dashboard", [
+        return Inertia::render("Items/index", [
             'data' => Item::with(["user", "tag"])->paginate(15)
         ]);
     }
@@ -46,7 +46,7 @@ class ItemsController extends Controller {
             'user_id' => 1
         ]);
 
-        return to_route('dashboard');
+        return to_route('item.index');
     }
 
     /**
@@ -83,7 +83,7 @@ class ItemsController extends Controller {
             'stock' => $request->stock
         ]);
 
-        return to_route('dashboard');
+        return to_route('item.index');
     }
 
     /**
@@ -91,6 +91,6 @@ class ItemsController extends Controller {
      */
     public function destroy(string $id) {
         Item::find($id)->delete();
-        return to_route('dashboard');
+        return to_route('item.index');
     }
 }
