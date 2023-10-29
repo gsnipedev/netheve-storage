@@ -56,7 +56,7 @@ function submit() {
       </div>
 
       <div>
-        <InputLabel for="item" value="Barang Inventory"/>
+        <InputLabel for="item_selector" value="Barang Inventory"/>
         <Select v-model="form.item_id" class="w-full block mt-1 h-11" id="item_selector">
           <option v-for="t in trx" :value="t.items.id">{{ t.items.name }} ({{ t.remaining_amount }})</option>
         </Select>

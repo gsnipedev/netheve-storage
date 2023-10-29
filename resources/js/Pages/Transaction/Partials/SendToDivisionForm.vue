@@ -37,9 +37,9 @@ function submit(){
 
         <form @submit.prevent="submit" class="mt-6 space-y-6">
             <div>
-                <InputLabel for="division" value="Divisi"/>
+                <InputLabel for="division_selector" value="Divisi"/>
 
-                <Select id="division" v-model="form.division_id" class="w-full h-11 mt-1">
+                <Select id="division_selector" v-model="form.division_id" class="w-full h-11 mt-1">
                     <option v-for="d in divisions" :value="d.id">{{ d.name }}</option>
                 </Select>
 
@@ -47,7 +47,7 @@ function submit(){
             </div>
 
             <div>
-                <InputLabel for="item" value="Barang Inventory"/>
+                <InputLabel for="item_selector" value="Barang Inventory"/>
                 <Select v-model="form.item_id" class="w-full block mt-1 h-11" id="item_selector">
                     <option v-for="i in items" :value="i.id">{{ i.name }}</option>
                 </Select>
