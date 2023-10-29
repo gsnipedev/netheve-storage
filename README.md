@@ -2,7 +2,8 @@
 
 Panduan Instalasi:
 
-1. Copy file ```env.example``` lalu berikan nama ```.env```
+1. Buka DBMS, lalu buat database.
+2. Copy file ```env.example``` lalu berikan nama ```.env```
 2. Sesuaikan kredensil database di file ```.env``` seperti Host, Port, Password, dan lain lain.
 3. Buka terminal, arahkan ke direktori project, lalu ikuti command di bawah
 ```console
