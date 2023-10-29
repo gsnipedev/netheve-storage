@@ -22,4 +22,4 @@ php artisan migrate:fresh
 php artisan serve --port=8000
 ```
 
-4. Buka browser, arahkan ke ```http://localhost:8080```
+4. Buka browser, arahkan ke ```http://localhost:8000```
