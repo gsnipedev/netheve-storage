@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  *
@@ -20,4 +21,12 @@ class TrxLog extends Model {
     ];
 
     use HasFactory;
+
+    function trx(): BelongsTo {
+        return $this->belongsTo(Trx::class, 'trx_id');
+    }
+
+    function issuer(): BelongsTo {
+        return $this->belongsTo(User::class, 'issuer');
+    }
 }

@@ -5,7 +5,9 @@ use App\Http\Controllers\Division\DivisionDataController;
 use App\Http\Controllers\Items\ItemsController;
 use App\Http\Controllers\Items\ItemsDataController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\Report\ReportController;
+use App\Http\Controllers\Transaction\TransactionController;
+use App\Http\Controllers\Transaction\TransactionDataController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -39,12 +41,20 @@ Route::controller(TransactionController::class)->group(function (){
     Route::post('/transaction/receive', 'store_back')->name('transaction.store_back');
 })->middleware(['auth', 'verified']);
 
+Route::controller(ReportController::class)->group(function (){
+    Route::get('/report', 'index')->name('report.index');
+})->middleware(['auth', 'verified']);
+
 Route::get('/search/item', [ItemsDataController::class, 'search'])
     ->name('search.item')
     ->middleware(['auth', 'verified']);
 
 Route::get('/search/division', [DivisionDataController::class, 'search'])
     ->name('search.division')
+    ->middleware(['auth', 'verified']);
+
+Route::post('/report/sendToDivision', [TransactionDataController::class, 'send'])
+    ->name('report.send_to_division')
     ->middleware(['auth', 'verified']);
 
 Route::middleware('auth')->group(function () {

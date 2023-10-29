@@ -10,8 +10,8 @@ import {ref} from "vue";
 const trx = ref([])
 
 const form = useForm({
-  division_id: '',
-  item_id: '',
+  division_id: 1,
+  item_id: 1,
   amount: 0
 });
 

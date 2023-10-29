@@ -6,6 +6,8 @@ import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import {Link} from '@inertiajs/vue3';
+import DropdownButton from "@/Components/DropdownButton.vue";
+import {ThemeService} from "@/Service/ThemeService.js";
 
 const showingNavigationDropdown = ref(false);
 </script>
@@ -40,6 +42,10 @@ const showingNavigationDropdown = ref(false);
                                 <NavLink :href="route('transaction.index')" :active="route().current('transaction.index')">
                                     Transaksi
                                 </NavLink>
+
+                              <NavLink :href="route('report.index')" :active="route().current('report.index')">
+                                    Laporan
+                              </NavLink>
                             </div>
                         </div>
 
@@ -73,6 +79,7 @@ const showingNavigationDropdown = ref(false);
 
                                     <template #content>
                                         <DropdownLink :href="route('profile.edit')"> Profile</DropdownLink>
+                                        <DropdownButton @click="ThemeService.changeTheme()">Theme</DropdownButton>
                                         <DropdownLink :href="route('logout')" method="post" as="button">
                                             Log Out
                                         </DropdownLink>
@@ -130,6 +137,10 @@ const showingNavigationDropdown = ref(false);
 
                         <ResponsiveNavLink :href="route('transaction.index')" :active="route().current('transaction')">
                             Transaksi
+                        </ResponsiveNavLink>
+
+                        <ResponsiveNavLink :href="route('report.index')" :active="route().current('report')">
+                            Laporan
                         </ResponsiveNavLink>
                     </div>
 

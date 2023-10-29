@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Transaction;
 
+use App\Http\Controllers\Controller;
 use App\Models\Division;
 use App\Models\Item;
 use App\Models\Trx;
