@@ -6,6 +6,7 @@ use App\Http\Controllers\Items\ItemsController;
 use App\Http\Controllers\Items\ItemsDataController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Report\ReportController;
+use App\Http\Controllers\Tag\TagController;
 use App\Http\Controllers\Transaction\TransactionController;
 use App\Http\Controllers\Transaction\TransactionDataController;
 use Illuminate\Foundation\Application;
@@ -34,6 +35,7 @@ Route::get('/', function () {
 
 Route::resource('item', ItemsController::class)->middleware(['auth', 'verified']);
 Route::resource('division', DivisionController::class)->middleware(['auth']);
+Route::resource('tag', TagController::class)->middleware(['auth', 'verified']);
 
 Route::controller(TransactionController::class)->group(function (){
     Route::get('/transaction', 'index')->name('transaction.index');
