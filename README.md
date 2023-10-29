@@ -19,6 +19,10 @@ php artisan migrate:fresh
 ```
 
 ```console
+npm run dev
+```
+
+```console
 php artisan serve --port=8000
 ```
 
